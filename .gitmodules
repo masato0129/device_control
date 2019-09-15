@@ -1,3 +1,0 @@
-[submodule "third_party_packages/SparkFun_MPU-9250-DMP_Arduino_Library"]
-	path = third_party_packages/SparkFun_MPU-9250-DMP_Arduino_Library
-	url = https://github.com/sparkfun/SparkFun_MPU-9250-DMP_Arduino_Library.git
