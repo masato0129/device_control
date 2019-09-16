@@ -8,5 +8,5 @@ done
 
 for sketch in `find ./src/ -name '*.ino'`
 do
-  echo $ARPATH/arduino-builder -hardware $ARPATH/hardware -tools $ARPATH/hardware/tools/avr -tools $ARPATH/tools-builder -libraries $ARPATH/libraries $LIBRARIES -fqbn arduino:avr:uno $sketch
+  $ARPATH/arduino-builder -hardware $ARPATH/hardware -tools $ARPATH/hardware/tools/avr -tools $ARPATH/tools-builder -libraries $ARPATH/libraries $LIBRARIES -fqbn arduino:avr:uno $sketch
 done
