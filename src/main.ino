@@ -41,7 +41,7 @@ void setup(void)
  */
 void loop(void)
 {
-  //uint8_t recvBuf[128] = {0};
+  uint8_t recvBuf[128] = {0};
   uint8_t sendBuf[128] = {0};
 
   uint32_t recvCounter = 0;
