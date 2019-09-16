@@ -1,6 +1,8 @@
 ARPATH=/opt/arduino
 LIBRARIES=""
 
+git submodule update --init --recursive
+
 for lib in `ls third_party_packages`
 do
   LIBRARIES=$LIBRARIES" -libraries third_party_packages/"$lib
