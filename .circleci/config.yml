@@ -15,4 +15,4 @@ jobs:
       - run:
           name: build
           command: |
-            ./circleci/build.sh
+            .circleci/build.sh
