@@ -3,7 +3,7 @@ LIBRARIES=""
 
 for lib in `ls third_party_packages`
 do
-  LIBRARIES=$LIBRARIES" -libraries "$lib
+  LIBRARIES=$LIBRARIES" -libraries third_party_packages/"$lib
 done
 
 for sketch in `find ./src/ -name '*.ino'`
