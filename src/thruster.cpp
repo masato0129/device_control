@@ -9,26 +9,16 @@
  * 
  */
 
-#include <Arduino.h>
 #include "thruster.hpp"
 
 /**
  * @brief Construct a new Thruster:: Thruster object
  * 
- * @param plusPinNo 
- * @param minusPinNo 
  * @param pwmPinNo 
- * @param currentPinNo 
  */
-Thruster::Thruster(uint8_t plusPinNo, uint8_t minusPinNo, uint8_t pwmPinNo, uint8_t currentPinNo)
+Thruster::Thruster(uint8_t pwmPinNo)
 {
-    plus = plusPinNo;
-    minus = minusPinNo;
-    pwm = pwmPinNo;
-    current = currentPinNo;
-
-    pinMode(plus, OUTPUT);
-    pinMode(minus, OUTPUT);
+  mypwmPinNo = pwmPinNo;
 }
 
 /**
@@ -37,7 +27,16 @@ Thruster::Thruster(uint8_t plusPinNo, uint8_t minusPinNo, uint8_t pwmPinNo, uint
  */
 Thruster::~Thruster()
 {
-    //do nothing
+  // do nothing
+}
+
+/**
+ * @brief pwm
+ * 
+ */
+void Thruster::init(void)
+{
+    myservo.attach(mypwmPinNo);
 }
 
 /**
@@ -45,48 +44,29 @@ Thruster::~Thruster()
  * 
  * @param motorSpeed 
  */
-void Thruster::setRevCmd(int motorSpeed)
+void Thruster::setRevCmd(float motorSpeed)
 {
-    int wk = abs(motorSpeed);
-
-    if (wk > 256){
-        stop();
-        return;
+    if (motorSpeed > 1){
+        motorSpeed = 1;
     }
-
-    if (motorSpeed > 0)
-    {
-        plusRev(wk);
-    }else if(motorSpeed < 0){
-        minusRev(wk);
-    }else{
-        stop();
+    if (motorSpeed < -1){
+        motorSpeed = -1;
     }
-}
-
-
-/**
- * @brief 正回転
- * 
- * @param motorSpeed 
- */
-void Thruster::plusRev(int motorSpeed)
-{
-    digitalWrite(plus, HIGH);
-    digitalWrite(minus, LOW);
-    analogWrite(pwm, motorSpeed);
+    int pwmSignal = convMotorSpeedtoPwmSignal(motorSpeed);
+    //Serial.println(pwmSignal);
+    myservo.writeMicroseconds(pwmSignal);
 }
 
 /**
- * @brief 逆回転
+ * @brief モーター回転数からpwm周期に変換
  * 
- * @param motorSpeed 
+ * @param motorSpeed
+ * 
+ * @return uint32_t
  */
-void Thruster::minusRev(int motorSpeed)
+uint32_t  Thruster::convMotorSpeedtoPwmSignal(float motorSpeed)
 {
-    digitalWrite(plus, LOW);
-    digitalWrite(minus, HIGH);
-    analogWrite(pwm, motorSpeed);
+    return int(motorSpeed * 100 * 4 + 1500);
 }
 
 /**
@@ -95,17 +75,5 @@ void Thruster::minusRev(int motorSpeed)
  */
 void Thruster::stop(void)
 {
-    digitalWrite(plus, LOW);
-    digitalWrite(minus, LOW);
+	myservo.writeMicroseconds(MOTOR_SIGNAL_STOP); // send "stop" signal to ESC.
 }
-
-/**
- * @brief 推進機の電圧取得
- * 
- * @return float 電圧値
- */
-float Thruster::getVoltageValue(void)
-{
-    int val = analogRead(current);
-    return 5.0 * val / 1023.0; //10ビットADコンバータのため（2^10-1）
-} 

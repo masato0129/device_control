@@ -12,25 +12,22 @@
 #ifndef __THRUSTER_HPP__
 #define __THRUSTER_HPP__
 
-#include <stdio.h>
+#include <Servo.h>
+#include "defineParams.h"
 
 class Thruster
 {
 public:
-    Thruster(uint8_t plusPinNo, uint8_t minusPinNo, uint8_t pwmPinNo, uint8_t currentPinNo);
+    Thruster(uint8_t pwmPinNo);
     ~Thruster();
-    void setRevCmd(int motorSpeed);
-    void plusRev(int motorSpeed);
-    void minusRev(int motorSpeed);
+    void setRevCmd(float motorSpeed);
     void stop(void);
-    float getVoltageValue(void);
+    void init(void);
 
 private:
-    uint8_t plus;
-    uint8_t minus;
-    uint8_t pwm;
-    uint8_t current;
+    uint32_t convMotorSpeedtoPwmSignal(float motorSpeed);
+    uint8_t mypwmPinNo = 0;
+    Servo myservo;
 };
 
 #endif // __THRUSTER_HPP__
-

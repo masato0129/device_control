@@ -12,41 +12,18 @@
 #ifndef __DEFINEPARAMS_H__
 #define __DEFINEPARAMS_H__
 
-#include "Arduino.h"
+// 推進機
+#define MOTOR_RIGHT_FRONT_PWM_PIN  (5)
+#define MOTOR_RIGHT_CENTER_PWM_PIN (6)
+#define MOTOR_RIGHT_REAR_PWM_PIN   (9)
+#define MOTOR_LEFT_FRONT_PWM_PIN   (10)
+#define MOTOR_LEFT_CENTER_PWM_PIN  (11)
+#define MOTOR_LEFT_REAR_PWM_PIN    (13)
 
-// モーター1
-const uint8_t MOTOR1_PLUS_PIN    = 1;
-const uint8_t MOTOR1_MINUS_PIN   = 0;
-const uint8_t MOTOR1_PWM_PIN     = 5;
-const uint8_t MOTOR1_CURRENT_PIN = A3;
-
-// モーター2
-const uint8_t MOTOR2_PLUS_PIN    = 4;
-const uint8_t MOTOR2_MINUS_PIN   = 7;
-const uint8_t MOTOR2_PWM_PIN     = 6;
-const uint8_t MOTOR2_CURRENT_PIN = A2;
-
-// モーター3
-const uint8_t MOTOR3_PLUS_PIN    = 8;
-const uint8_t MOTOR3_MINUS_PIN   = 9;
-const uint8_t MOTOR3_PWM_PIN     = 10;
-const uint8_t MOTOR3_CURRENT_PIN = A1;
-
-// モーター4
-const uint8_t MOTOR4_PLUS_PIN    = 11;
-const uint8_t MOTOR4_MINUS_PIN   = 12;
-const uint8_t MOTOR4_PWM_PIN     = 13;
-const uint8_t MOTOR4_CURRENT_PIN = A0;
-
-// 深度センサ
-const uint8_t DEPTH_PIN = A5;
-
-// imu関係
-#define I2Cclock 400000
-#define I2Cport Wire
-#define MPU9250_ADDRESS MPU9250_ADDRESS_AD0   // Use either this line or the next to select which I2C address your device is using
-//#define MPU9250_ADDRESS MPU9250_ADDRESS_AD1
-#define AHRS true         // Set to false for basic data read
+// pwm信号の上下限
+#define MOTOR_SIGNAL_STOP (1500)
+#define MOTOR_SIGNAL_MAX  (1900) 
+#define MOTOR_SIGNAL_MIN  (1100) 
 
 // シリアル通信
 #define BAUNDRATE 115200
@@ -55,6 +32,6 @@ const uint8_t DEPTH_PIN = A5;
 #define DVICE_ERORR 0xFF
 
 // デバッグ関係
-#define SerialDebug false  // Set to true to get Serial output for debugging
+#define SerialDebug false
 
 #endif // __DEFINEPARAMS_H__
