@@ -1,0 +1,13 @@
+name: "docker_run"
+description: "docker image for arduino"
+author: "techmasat"
+
+inputs:
+  run-command: # id of input
+    description: "Command to run"
+    required: true
+runs:
+  using: "Docker"
+  image: "techmasat/uwr_arduino_ubuntu"
+  args:
+    - ${{inputs.run-command}}
